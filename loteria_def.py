@@ -141,14 +141,10 @@ f.sort_values('support', ascending=False).head(60)
 te2 = TransactionEncoder()
 te_ary2 = te2.fit(estrellas5).transform(estrellas5)
 df2 = pd.DataFrame(te_ary2, columns=te2.columns_)
-df2
 frequent_itemsets2 = apriori(df2, min_support=0.001, use_colnames=True)
 frequent_itemsets2['length'] = frequent_itemsets2['itemsets'].apply(lambda x: len(x))
 
-f = frequent_itemsets2[ (frequent_itemsets2['length'] == 2) &
-                   (frequent_itemsets2['support'] >= 0.025) ] #Para parejas poner lengh en 2 y support mayor que 0.023, y para trios poner length en3 y support inferior a 0.005
+f = frequent_itemsets2[(frequent_itemsets2['length'] == 2) &
+                       (frequent_itemsets2['support'] >= 0.025)]
+# Para parejas poner lengh en 2 y support mayor que 0.023, y para trios poner length en3 y support inferior a 0.005
 f.sort_values('support', ascending=False).head(60)
-
-################################################################
-################################################################
-
