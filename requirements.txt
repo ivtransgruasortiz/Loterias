@@ -12,3 +12,4 @@ requests
 tables
 bs4
 mlxtend
+lxml
