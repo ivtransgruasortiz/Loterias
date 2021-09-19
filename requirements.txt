@@ -1,0 +1,14 @@
+# New general Scaffolder
+pylint==2.9.3
+pytest
+click
+black==20.8b1
+pytest-cov
+
+# Specific libraries
+numpy
+pandas
+requests
+tables
+bs4
+mlxtend
