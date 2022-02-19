@@ -48,26 +48,24 @@ primitiva2.index = pd.to_datetime(primitiva2.index)
 primitiva2.columns = ['bola_1', 'bola_2', 'bola_3', 'bola_4', 'bola_5', 'bola_6', 'complementario', 'reintegro',
                       'joker']
 
-primitiva = pd.concat([primitiva2, primitiva1], ignore_index=True).sort_index(ascending=False)
 primitiva = pd.concat([primitiva2, primitiva1], ignore_index=False).sort_index(ascending=False)
 
 primitiva2 = primitiva.iloc[:, 0:7]
 primitiva3 = primitiva2.reset_index()
 primitiva3 = primitiva3.iloc[:, 1:8]
 primitiva4 = primitiva3.astype(str)
-#primitiva5 = primitiva4.iloc[0:100,:]
-primitiva6 = primitiva4.values.tolist()
+primitiva5 = primitiva4.values.tolist()
 ################################################################
 # bolas y complementario
 te = TransactionEncoder()
-te_ary = te.fit(primitiva6).transform(primitiva6)
+te_ary = te.fit(primitiva5).transform(primitiva5)
 df = pd.DataFrame(te_ary, columns=te.columns_)
-df
+
 frequent_itemsets = apriori(df, min_support=0.001, use_colnames=True)
 frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
 
-f = frequent_itemsets[(frequent_itemsets['length'] == 2)]
-f.sort_values('support', ascending=False)
+f = frequent_itemsets[(frequent_itemsets['length'] == 2)].sort_values('support', ascending=False)
+reintegro = primitiva['reintegro'].value_counts().sort_values(ascending=False)
 #  Para parejas poner lengh en 2 y support mayor que 0.023, y para trios poner length en3 y support inferior a 0.005
 ################################################################
 ################################################################
